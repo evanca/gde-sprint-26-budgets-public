@@ -1,0 +1,333 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <!-- seo:stamped -->
+  <meta name="description" content="Cap an autonomous Antigravity SDK agent with a token budget: a monitor warns near the limit and trips a kill-switch before a runaway loop burns it.">
+  <meta name="keywords" content="antigravity-sdk, token-budgets, cost-engineering, kill-switch, hooks, finops">
+  <meta name="author" content="evanca">
+  <link rel="canonical" href="https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Cap an Autonomous Agent with Token Budgets and a Kill-Switch">
+  <meta property="og:description" content="Cap an autonomous Antigravity SDK agent with a token budget: a monitor warns near the limit and trips a kill-switch before a runaway loop burns it.">
+  <meta property="og:url" content="https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/">
+  <meta property="og:site_name" content="2026 Agentic Architect Sprint by Google">
+  <meta property="og:image" content="https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/img/8b152061ae5170eb.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cap an Autonomous Agent with Token Budgets and a Kill-Switch">
+  <meta name="twitter:description" content="Cap an autonomous Antigravity SDK agent with a token budget: a monitor warns near the limit and trips a kill-switch before a runaway loop burns it.">
+  <meta name="twitter:image" content="https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/img/8b152061ae5170eb.png">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Cap an Autonomous Agent with Token Budgets and a Kill-Switch",
+      "description": "Cap an autonomous Antigravity SDK agent with a token budget: a monitor warns near the limit and trips a kill-switch before a runaway loop burns it.",
+      "url": "https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/",
+      "inLanguage": "en",
+      "keywords": "antigravity-sdk, token-budgets, cost-engineering, kill-switch, hooks, finops",
+      "author": {
+        "@type": "Person",
+        "name": "evanca"
+      },
+      "isPartOf": {
+        "@type": "Course",
+        "name": "2026 Agentic Architect Sprint by Google",
+        "url": "https://happycode.studio"
+      },
+      "image": "https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/img/8b152061ae5170eb.png"
+    },
+    {
+      "@type": "HowTo",
+      "name": "Cap an Autonomous Agent with Token Budgets and a Kill-Switch",
+      "description": "Cap an autonomous Antigravity SDK agent with a token budget: a monitor warns near the limit and trips a kill-switch before a runaway loop burns it.",
+      "totalTime": "PT38M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Prepare the SDK"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Assemble the Workspace"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "See the Gap: an Unmonitored Agent"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Build the Token Budget Monitor"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Wire the Kill-Switch"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Run It: Watch the Budget Trip"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Verify"
+        },
+        {
+          "@type": "HowToStep",
+          "position": 8,
+          "name": "Congratulations"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "2026 Agentic Architect Sprint by Google",
+          "item": "https://happycode.studio"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cap an Autonomous Agent with Token Budgets and a Kill-Switch",
+          "item": "https://happycode.studio/gde-sprint-26-budgets-public/agent-cost-control-room/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+  <style id="cl-prompt-plain">
+    /* Render ```text blocks (prompts, trees) as plain monospace, not syntax-colored. */
+    pre code[class*="language-text"] span { color: inherit !important; background: transparent !important; font-weight: inherit !important; font-style: inherit !important; }
+  </style>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVZ48SGNV9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QVZ48SGNV9');
+  </script>
+
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Cap an Autonomous Agent with Token Budgets and a Kill-Switch</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="agent-cost-control-room"
+                  title="Cap an Autonomous Agent with Token Budgets and a Kill-Switch"
+                  environment="web"
+                  feedback-link="https://github.com/evanca/gde-sprint-26-budgets-public/issues">
+    
+      <google-codelab-step label="Introduction" duration="3">
+        <p>This codelab is part of the <strong>2026 Agentic Architect Sprint by Google</strong>.</p>
+<p>An autonomous agent that loops on a failing step — re-running a test, re-patching the same assertion — can quietly burn tokens (and money) until someone notices. Controlling <em>what</em> an agent may do isn&#39;t enough; you also need to control <em>how much it may spend</em>. An architect will not run an agent build without a <strong>budget</strong> and an automated <strong>kill-switch</strong>.</p>
+<p>This codelab builds both with the <strong>Antigravity SDK</strong> (<code>google-antigravity</code>, Python). A monitor reads the SDK&#39;s <strong>live cumulative token usage</strong>, surfaces the running cost (including Gemini&#39;s reasoning/&#34;thinking&#34; tokens), warns as it nears the cap, and — once the budget is exhausted — <strong>denies every further tool call</strong>, halting a runaway loop. A <strong>Cost Control Room</strong> dashboard renders the spend.</p>
+<aside class="special"><p> The SDK exposes usage on the conversation: <code>agent.conversation.total_usage</code> is a cumulative <code>UsageMetadata</code> with <code>prompt_token_count</code>, <code>candidates_token_count</code>, <code>thoughts_token_count</code> (reasoning), and <code>total_token_count</code>. It updates <em>during</em> a turn as the agent takes steps — which is what lets a pre-tool hook catch a runaway loop mid-flight. </p>
+</aside>
+<aside class="warning"><p> The SDK has <strong>no </strong><code>stop()</code> / <code>continue=false</code> API. The kill-switch is modeled as <strong>deny-all</strong>: once the budget is exceeded, a pre-tool Decide hook denies every further tool call, so the agent can take no more action. </p>
+</aside>
+<h2 is-upgraded>What You Will Build</h2>
+<ul>
+<li>A token <strong>budget monitor</strong> (<code>monitor/budget.py</code>) that accumulates token usage and classifies it <code>ok</code> / <code>warn</code> / <code>tripped</code>.</li>
+<li>A pre-tool <strong>Decide</strong> hook that reads live cumulative usage and denies all further tool calls once the budget is tripped — the automated kill-switch.</li>
+<li>A <strong>Cost Control Room</strong> dashboard rendering the per-turn ledger and budget meter.</li>
+</ul>
+<h2 is-upgraded>What You Will Learn</h2>
+<ul>
+<li>How the SDK exposes live cumulative token usage via <code>agent.conversation.total_usage</code>.</li>
+<li>How to accumulate spend and classify it against warn / cap thresholds.</li>
+<li>How a deny-all Decide hook acts as a kill-switch when the SDK has no <code>stop()</code>.</li>
+<li>How to detect a runaway loop and contain it at the budget, not the bill.</li>
+<li>How to unit-test budget logic deterministically, offline.</li>
+</ul>
+<h2 is-upgraded>Cost and Scope</h2>
+<p>The monitor is a pure <code>update()</code> / <code>decide()</code> pair, tested offline with <code>python -m unittest</code> — no agent run or live tokens needed to verify it. Running the live agent against the kill-switch is a short, bounded demonstration.</p>
+<p>Target duration: <strong>35–45 minutes</strong>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prepare the SDK" duration="4">
+        <p>The monitor is verified offline with no SDK installed. Install the SDK only to run a live agent against the kill-switch. Install with <code>python -m pip</code> so it lands in the same interpreter you run the agent with (a bare <code>pip</code> can target a different environment, e.g. under Anaconda):</p>
+<pre><code language="language-bash" class="language-bash">python -m pip install google-antigravity
+python -c &#34;import google.antigravity; print(&#39;SDK ready&#39;)&#34;
+</code></pre>
+<p>The SDK needs credentials. Choose one path:</p>
+<p><strong>Cloud project (Vertex AI — recommended for enterprise). </strong><code>agent.py</code> switches to the Vertex backend automatically when <code>GOOGLE_CLOUD_PROJECT</code> is set:</p>
+<pre><code language="language-bash" class="language-bash">gcloud auth application-default login
+export GOOGLE_CLOUD_PROJECT=&#34;your-project-id&#34;
+export GOOGLE_CLOUD_LOCATION=&#34;global&#34;        # or your region, e.g. us-central1
+</code></pre>
+<p><strong>Gemini API key.</strong> Or use a Developer API key instead:</p>
+<pre><code language="language-bash" class="language-bash">export GEMINI_API_KEY=&#34;your-key&#34;
+</code></pre>
+<p>Confirm the prerequisites — the monitor and its tests are pure Python; the Cost Control Room and its static checks run on Node:</p>
+<pre><code language="language-bash" class="language-bash">python3 --version    # Python 3.9+
+node --version       # Node.js 20+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Assemble the Workspace" duration="3">
+        <p>The kit lives in <code>workspace/</code>. Pull down just that folder with a sparse checkout:</p>
+<pre><code language="language-bash" class="language-bash">git clone --no-checkout --depth 1 https://github.com/evanca/gde-sprint-26-budgets-public.git
+cd gde-sprint-26-budgets-public
+git sparse-checkout init --cone
+git sparse-checkout set workspace
+git checkout
+cd workspace
+</code></pre>
+<p>Confirm the baseline. The dashboard and ledger are valid; the budget tests are intentionally <strong>red</strong> until you build the monitor:</p>
+<pre><code language="language-bash" class="language-bash">node verify.mjs                                        # Static verification passed.
+node --test                                            # console tests pass
+python -m unittest discover -s tests -p &#34;test_*.py&#34;    # some FAIL — budget is a stub
+</code></pre>
+<p>The monitor logic lives in <code>monitor/budget.py</code> (pure Python). The SDK wiring is in <code>monitor/agent.py</code>, and the dashboard reads the ledger in <code>data/</code>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="See the Gap: an Unmonitored Agent" duration="4">
+        <p>The starter <code>monitor/budget.py</code> is a no-op stub, so nothing accounts for spend. Serve the Cost Control Room and look at a build that already fell into a retry loop — turns 9–11 re-attempt the same fix, climbing toward the cap:</p>
+<pre><code language="language-bash" class="language-bash">python3 -m http.server 8000   # open http://localhost:8000/ , then stop it
+</code></pre>
+<p class="image-container"><img alt="The Cost Control Room: a build looping on the same fix, approaching its token cap" src="img/8b152061ae5170eb.png"></p>
+<p>Nothing stopped it — there is no monitor. With no budget, a loop like that runs until your quota, or your bill, says stop. That is what the kill-switch prevents.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Build the Token Budget Monitor" duration="8">
+        <p>Open <code>monitor/budget.py</code> (a no-op stub) and implement the monitor described in <code>rules/*.md</code>. The logic is pure — no SDK import — so it unit-tests offline. <code>update(turn_tokens, state)</code> accumulates this checkpoint&#39;s tokens and classifies the result; <code>decide(state)</code> is the kill-switch. You can author it yourself or ask the (still unmonitored) agent:</p>
+<pre><code language="language-text" class="language-text">Read every brief in rules/. Implement monitor/budget.py: export tokens_of(response_like) reading usage_metadata.total_token_count, and update(turn_tokens, state) using state[&#34;usage&#34;] and state[&#34;budget&#34;]. Set state=&#34;tripped&#34;/action=&#34;kill&#34; with a stop_reason when turns exceed max_turns or cumulative tokens reach max_tokens, state=&#34;warn&#34;/action=&#34;warn&#34; with a system_message at warn_at_tokens, otherwise state=&#34;ok&#34;. Also export decide(state) returning {&#34;decision&#34;:&#34;deny&#34;,...} once tripped, else {&#34;decision&#34;:&#34;allow&#34;}. Run `python -m unittest discover -s tests -p &#34;test_*.py&#34;` until all tests pass; do not weaken the tests.
+</code></pre>
+<p>Confirm the monitor is green:</p>
+<pre><code language="language-bash" class="language-bash">python -m unittest discover -s tests -p &#34;test_*.py&#34;     # all budget tests pass
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Wire the Kill-Switch" duration="5">
+        <p><code>monitor/agent.py</code> turns that pure logic into a live kill-switch. A pre-tool <strong>Decide</strong> hook reads the conversation&#39;s <strong>live cumulative usage</strong> before each tool call, feeds the delta through <code>update()</code>, surfaces the running cost, and — once <code>decide()</code> reports tripped — denies the call:</p>
+<pre><code language="language-python" class="language-python">from google.antigravity import Agent, LocalAgentConfig
+from google.antigravity.hooks import PreToolCallDecideHook
+from google.antigravity.types import HookResult
+from .budget import update, decide
+
+class CostKillSwitch(PreToolCallDecideHook):
+    def __init__(self, budget):
+        self.state = {&#34;budget&#34;: budget, &#34;usage&#34;: {&#34;total_tokens&#34;: 0, &#34;turns&#34;: 0}}
+        self._last = 0
+        self.read_total = lambda: 0          # wired to the live agent below
+
+    async def run(self, context, data) -&gt; HookResult:
+        live = int(self.read_total() or 0)   # cumulative tokens so far
+        result = update(max(0, live - self._last), self.state)
+        self._last = live
+        self.state[&#34;usage&#34;] = {&#34;total_tokens&#34;: result[&#34;cumulative_tokens&#34;],
+                               &#34;turns&#34;: result[&#34;turns&#34;],
+                               **({&#34;state&#34;: &#34;tripped&#34;, &#34;stop_reason&#34;: result[&#34;stop_reason&#34;]}
+                                  if result[&#34;state&#34;] == &#34;tripped&#34; else {})}
+        if result[&#34;system_message&#34;]:
+            print(result[&#34;system_message&#34;])
+        verdict = decide(self.state[&#34;usage&#34;])
+        return HookResult(allow=verdict[&#34;decision&#34;] != &#34;deny&#34;,
+                          message=verdict.get(&#34;reason&#34;, &#34;&#34;))
+
+kill_switch = CostKillSwitch({&#34;max_tokens&#34;: 40000, &#34;warn_at_tokens&#34;: 25000})
+config = LocalAgentConfig(workspaces=[PROJECT_ROOT], hooks=[kill_switch])
+async with Agent(config) as agent:
+    kill_switch.read_total = lambda: agent.conversation.total_usage.total_token_count or 0
+    ...
+</code></pre>
+<aside class="special"><p> The hook reads <code>agent.conversation.total_usage</code> live — wired after the agent exists. Because that cumulative count grows as the agent takes steps within a turn, the hook catches the budget crossing <em>mid-loop</em> and denies the next tool call. <code>HookResult</code> carries <code>allow</code> and a <code>message</code> the agent sees. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run It: Watch the Budget Trip" duration="5">
+        <p>Run the agent on a task expensive enough to blow the (deliberately low) budget:</p>
+<pre><code language="language-bash" class="language-bash">python -m monitor.agent
+</code></pre>
+<p>The monitor reports the running cost before each tool call. It does real work under budget, <strong>warns</strong> as it approaches the cap, then the kill-switch <strong>trips</strong> and denies every further call — containing the runaway at the budget, not the bill:</p>
+<p class="image-container"><img alt="The live run: cost monitor climbing, a warn, then the kill-switch denying further tool calls" src="img/d3c9c81e9aeab42d.gif"></p>
+<p>The closing summary reads the cumulative usage straight off the conversation — including the reasoning (&#34;thinking&#34;) tokens:</p>
+<pre><code language="language-text" class="language-text">  --- Run cost ---
+  Turns: 1 · Thinking tokens: 5,368 · Total tokens: 156,537
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Verify" duration="4">
+        <p>The monitor is verified deterministically, with no agent, by feeding fixture token counts to <code>update()</code> / <code>decide()</code> against a budget:</p>
+<pre><code language="language-bash" class="language-bash">python -m unittest discover -s tests -p &#34;test_*.py&#34;    # monitor + kill-switch tests pass
+node --test                                            # control-room roll-up tests pass
+node verify.mjs                                        # budget + ledger static checks pass
+</code></pre>
+<p class="image-container"><img alt="The offline budget tests passing — the monitor and kill-switch verified without an agent" src="img/2b8960f2f34f6636.gif"></p>
+<p>You can also exercise the kill-switch on a fixture turn directly:</p>
+<pre><code language="language-bash" class="language-bash">python -c &#34;import json; from monitor.budget import tokens_of, update, decide; s={&#39;budget&#39;:{&#39;max_tokens&#39;:40000,&#39;warn_at_tokens&#39;:25000,&#39;usd_per_1k_tokens&#39;:0.005},&#39;usage&#39;:{&#39;total_tokens&#39;:39000,&#39;turns&#39;:3}}; r=update(tokens_of(json.load(open(&#39;fixtures/turn-over.json&#39;))), s); print(decide({&#39;state&#39;:r[&#39;state&#39;],&#39;stop_reason&#39;:r[&#39;stop_reason&#39;]}))&#34;
+</code></pre>
+<p>With 39,000 tokens already spent, one more over-cap turn trips the kill-switch and <code>decide()</code> returns a <code>deny</code> for every subsequent tool call.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="2">
+        <p>You gave an autonomous agent a budget it cannot exceed: a monitor that reads the SDK&#39;s live cumulative token usage, warns as it nears the cap, and trips an automated deny-all kill-switch — containing a runaway loop at the budget instead of the bill, all visible on a FinOps Cost Control Room.</p>
+<p>You learned:</p>
+<ul>
+<li>The SDK exposes live cumulative usage via <code>agent.conversation.total_usage</code>, including Gemini&#39;s reasoning (&#34;thinking&#34;) tokens.</li>
+<li>Accumulating spend turns raw counts into warn / cap decisions.</li>
+<li>A deny-all Decide hook is the kill-switch when the SDK has no <code>stop()</code> API.</li>
+<li>Reading usage live — not between turns — is what lets the switch stop a loop mid-flight.</li>
+</ul>
+<p><strong>Portability:</strong> the same pattern works on any agent SDK that reports cumulative usage and supports a pre-tool hook — read the running total, classify it, and deny once over budget; only the field names change.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "build": "agent build #1487 — refactor checkout flow",
+  "model": "gemini-2.5-pro",
+  "maxTokens": 200000,
+  "warnAtTokens": 150000,
+  "maxTurns": 16,
+  "usdPer1kTokens": 0.005
+}

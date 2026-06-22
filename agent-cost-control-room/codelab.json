@@ -1,0 +1,33 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2026-06-22T17:08:42+03:00",
+  "id": "agent-cost-control-room",
+  "duration": 38,
+  "title": "Cap an Autonomous Agent with Token Budgets and a Kill-Switch",
+  "authors": "evanca",
+  "summary": "Give an autonomous agent a token budget it cannot exceed — a monitor that reads the Antigravity SDK’s live cumulative token usage, warns as it nears the cap, and trips a deny-all kill-switch that halts a runaway loop before it burns the budget.",
+  "source": "codelab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "antigravity",
+    "sdk",
+    "web"
+  ],
+  "tags": [
+    "antigravity-sdk",
+    "cost-engineering",
+    "finops",
+    "hooks",
+    "kill-switch",
+    "token-budgets",
+    "web"
+  ],
+  "feedback": "https://github.com/evanca/gde-sprint-26-budgets-public/issues",
+  "url": "agent-cost-control-room"
+}

@@ -1,0 +1,16 @@
+{
+  "build": "agent build #1487 — refactor checkout flow",
+  "turns": [
+    { "turn": 1, "label": "Plan the refactor", "tokens": 8000, "toolCalls": 0, "retries": 0, "compactions": 0 },
+    { "turn": 2, "label": "Read the checkout module", "tokens": 9000, "toolCalls": 2, "retries": 0, "compactions": 0 },
+    { "turn": 3, "label": "Draft the changes", "tokens": 14000, "toolCalls": 3, "retries": 0, "compactions": 0 },
+    { "turn": 4, "label": "Run the test suite", "tokens": 12000, "toolCalls": 2, "retries": 0, "compactions": 0 },
+    { "turn": 5, "label": "Fix a failing test", "tokens": 15000, "toolCalls": 3, "retries": 1, "compactions": 0 },
+    { "turn": 6, "label": "Re-run the test suite", "tokens": 13000, "toolCalls": 2, "retries": 0, "compactions": 0 },
+    { "turn": 7, "label": "Patch the same assertion", "tokens": 17000, "toolCalls": 4, "retries": 1, "compactions": 0 },
+    { "turn": 8, "label": "Re-run the test suite", "tokens": 14000, "toolCalls": 2, "retries": 0, "compactions": 0 },
+    { "turn": 9, "label": "Retry the same fix (loop)", "tokens": 22000, "toolCalls": 6, "retries": 2, "compactions": 1 },
+    { "turn": 10, "label": "Retry the same fix (loop)", "tokens": 26000, "toolCalls": 7, "retries": 3, "compactions": 0 },
+    { "turn": 11, "label": "Retry the same fix (loop)", "tokens": 31000, "toolCalls": 8, "retries": 4, "compactions": 1 }
+  ]
+}

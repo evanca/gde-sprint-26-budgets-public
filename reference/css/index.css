@@ -1,0 +1,84 @@
+:root {
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --ink: #e7e9ee;
+  --muted: #9aa3b2;
+  --line: #2a2f3a;
+  --ok: #46c08a;
+  --warn: #e0a13b;
+  --over: #e0584b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); }
+header h1 { margin: 0 0 0.25rem; font-size: 1.3rem; }
+.summary { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.85rem; }
+
+.meter {
+  position: relative;
+  height: 1.4rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 640px;
+}
+.meter .bar { display: block; height: 100%; background: var(--ok); transition: width 0.3s; }
+.meter.level-warn .bar { background: var(--warn); }
+.meter.level-over .bar { background: var(--over); }
+.meter .pct {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; color: var(--ink); mix-blend-mode: difference;
+}
+
+.error {
+  margin: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
+  background: #2a1416;
+  border: 1px solid var(--over);
+  border-radius: 8px;
+}
+
+main { padding: 1.5rem; overflow-x: auto; }
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.82rem;
+}
+.ledger th, .ledger td { padding: 0.5rem 0.7rem; text-align: left; border-bottom: 1px solid var(--line); }
+.ledger th { color: var(--muted); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.ledger .num { text-align: right; font-variant-numeric: tabular-nums; }
+.ledger tbody tr:last-child td { border-bottom: none; }
+.ledger tr.level-warn td:first-child { box-shadow: inset 3px 0 var(--warn); }
+.ledger tr.level-over td:first-child { box-shadow: inset 3px 0 var(--over); }
+
+.badge {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.badge.level-ok { color: var(--ok); border-color: var(--ok); }
+.badge.level-warn { color: var(--warn); border-color: var(--warn); }
+.badge.level-over { color: var(--over); border-color: var(--over); }
+
+@media (max-width: 860px) {
+  .ledger { font-size: 0.75rem; }
+  .ledger th, .ledger td { padding: 0.4rem 0.45rem; }
+}
